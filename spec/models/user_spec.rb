@@ -10,4 +10,14 @@ describe User do
   it { should respond_to(:password_confirmation) }
 
   it { should be_valid }
+
+  describe "when the email is invalid" do
+    before do
+      @user.email = " "
+    end
+
+    it "should not be valid" do
+      expect(@user.valid?).to eq(false)
+    end
+  end
 end
