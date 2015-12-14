@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   devise_for :users
   namespace :api, defaults: { format: :json }  do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
-      resources :users, only: [:show, :create, :update, :destroy]
+      #resources :users, only: [:show, :create, :update, :destroy]
+      devise_for :users, :module => "api/v1", controllers: { omniauth_callbacks: "api/v1/omniauth_callbacks" } 
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

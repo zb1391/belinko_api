@@ -265,4 +265,5 @@ Devise.setup do |config|
 
   # TODO: get a new key later and make it an environment variable
   config.omniauth :facebook, "561265827354748", "ebb4ed4353b0e928c0b1093daab7b8af",  callback_url: "CALLBACK_URL"
+  config.omniauth_path_prefix = "/api/v1/users/auth"
 end
