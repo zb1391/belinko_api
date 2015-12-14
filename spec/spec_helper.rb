@@ -4,6 +4,20 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 
 require 'devise'
+
+
+# set OmniAuth in test mode
+OmniAuth.config.test_mode = true
+
+# create a default mock for the auth
+OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
+  :provider => 'facebook',
+  :uid => '123545',
+  :info => {
+    :email => 'test@test.com'
+  }
+})
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
