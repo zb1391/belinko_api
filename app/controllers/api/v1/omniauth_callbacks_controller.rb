@@ -7,7 +7,6 @@ class Api::V1::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @user.persisted?
       sign_in @user, event: :authentication
  
-      binding.pry
       # return the omni-auth data in the response
       # including the user's uid and the auth-token
       render json: request.env['omniauth.auth'], status: 201 
