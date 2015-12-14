@@ -5,6 +5,7 @@ class Api::V1::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
 
     if @user.persisted?
+      @user.update_auth_token(request.env["omniauth.auth"].credentials.token)
       sign_in @user, event: :authentication
  
       # return the omni-auth data in the response

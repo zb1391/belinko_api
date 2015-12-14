@@ -25,7 +25,6 @@ describe User do
   end
 
   describe "User.from_omniauth" do
-    let(:auth) { OmniAuth.config.mock_auth[:facebook] }
     before(:each) do
       @user = FactoryGirl.create :user, uid: "123", provider: "facebook"
       @auth = OmniAuth.config.mock_auth[:facebook]
@@ -34,7 +33,21 @@ describe User do
     end
 
     it "returns the user when the auth params match" do
-      expect(User.from_omniauth(auth)).to eq @user
+      expect(User.from_omniauth(@auth)).to eq @user
     end
+  end
+
+  describe "update_auth_token" do
+    before(:each) do
+      @user = FactoryGirl.create :user, auth_token: (User.count+1).to_s+'-token'
+      @auth = OmniAuth.config.mock_auth[:facebook]
+      @auth.credentials = { :token => (User.count+1).to_s+"-token-unique" }
+      @auth.uid = "123"
+      @user.update_auth_token(@auth.credentials.token)
+    end
+
+    it "updates the token when it differs from the current" do
+      expect(@user.auth_token).to eql (User.count+1).to_s+"-token-unique"
+    end 
   end
 end
