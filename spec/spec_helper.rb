@@ -4,7 +4,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 
 require 'devise'
-
+require "shoulda/matchers"
 
 # set OmniAuth in test mode
 OmniAuth.config.test_mode = true
@@ -81,4 +81,14 @@ RSpec.configure do |config|
 
   #Including to test requests
   config.include Request::JsonHelpers, :type => :controller
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    # Choose a test framework:
+    with.test_framework :rspec
+
+    # Choose one or more libraries:
+    with.library :rails
+  end
 end

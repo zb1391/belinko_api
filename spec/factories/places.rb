@@ -1,9 +1,8 @@
 FactoryGirl.define do
   factory :place do
-    name "MyString"
-latitude "MyString"
-longitude "MyString"
-lat_long "MyString"
+    name "My Place"
+    sequence(:latitude)  { |n| "100#{n}" }
+    sequence(:longitude) { |n| "800#{n}" }
   end
 
 end
