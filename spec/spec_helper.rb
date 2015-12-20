@@ -77,4 +77,8 @@ RSpec.configure do |config|
 
   # get devise controller specs to work
   config.include Devise::TestHelpers, :type => :controller
+
+
+  #Including to test requests
+  config.include Request::JsonHelpers, :type => :controller
 end
