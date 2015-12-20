@@ -14,5 +14,8 @@ RSpec.describe Place, type: :model do
   it { should validate_presence_of :latitude }
   it { should validate_presence_of :longitude }
   it { should validate_presence_of :name }
+  
+  it { should validate_uniqueness_of :latitude }
+  it { should validate_uniqueness_of :longitude }
 
 end
