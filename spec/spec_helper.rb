@@ -79,8 +79,9 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
 
 
-  #Including to test requests
+  # Including to test requests
   config.include Request::JsonHelpers, :type => :controller
+
 end
 
 Shoulda::Matchers.configure do |config|
