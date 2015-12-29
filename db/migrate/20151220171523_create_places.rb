@@ -1,16 +1,15 @@
 class CreatePlaces < ActiveRecord::Migration
   def up
-    create_table :places, id: false do |t|
+    create_table :places do |t|
       t.string :name
-      t.string :latitude
-      t.string :longitude
-      t.string :lat_long
+      t.float :latitude
+      t.float :longitude
 
       t.timestamps null: false
     end
 
-    # make lat_long our primary key
-    execute "ALTER TABLE places ADD PRIMARY KEY (lat_long);"
+    add_index :places, :latitude
+    add_index :places, :longitude
   end
 
   def down

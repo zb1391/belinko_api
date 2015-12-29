@@ -13,13 +13,16 @@
 
 ActiveRecord::Schema.define(version: 20151220171523) do
 
-  create_table "places", primary_key: "lat_long", force: :cascade do |t|
+  create_table "places", force: :cascade do |t|
     t.string   "name",       limit: 255
-    t.string   "latitude",   limit: 255
-    t.string   "longitude",  limit: 255
+    t.float    "latitude",   limit: 24
+    t.float    "longitude",  limit: 24
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  add_index "places", ["latitude"], name: "index_places_on_latitude", using: :btree
+  add_index "places", ["longitude"], name: "index_places_on_longitude", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false

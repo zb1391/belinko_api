@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :place do
     name "My Place"
-    sequence(:latitude)  { |n| "100#{n}" }
-    sequence(:longitude) { |n| "800#{n}" }
+    sequence(:latitude)  { |n| n }
+    sequence(:longitude) { |n| n }
   end
 
 end
