@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151220171523) do
+ActiveRecord::Schema.define(version: 20151229155357) do
 
   create_table "places", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(version: 20151220171523) do
 
   add_index "places", ["latitude"], name: "index_places_on_latitude", using: :btree
   add_index "places", ["longitude"], name: "index_places_on_longitude", using: :btree
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer  "place_id",   limit: 4
+    t.integer  "user_id",    limit: 4
+    t.text     "comment",    limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false

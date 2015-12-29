@@ -14,6 +14,9 @@ describe User do
 
   it { should be_valid }
 
+  it { should have_many(:reviews) }
+  it { should have_many(:places) }
+
   describe "when the email is invalid" do
     before do
       @user.email = " "
@@ -49,5 +52,22 @@ describe User do
     it "updates the token when it differs from the current" do
       expect(@user.auth_token).to eql (User.count+1).to_s+"-token-unique"
     end 
+  end
+
+
+  describe "review associations" do
+    before do
+      @user = FactoryGirl.create :user, uid: "456", provider: "facebook"
+      @place = FactoryGirl.create :place
+      3.times { FactoryGirl.create :review, user: @user, place: @place }
+    end
+
+    it "destroys the associated reviews when the user is destroyed" do
+      reviews = @user.reviews
+      @user.destroy
+      reviews.each do |review|
+        expect(Review.find(review)).to raise_error ActiveRecord::RecordNotFound
+      end
+    end
   end
 end
