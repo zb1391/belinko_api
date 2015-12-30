@@ -1,8 +1,12 @@
 
 module GooglePlacesHelpers
   def google_place_response
-    place = Place.first.nil? ? FactoryGirl.create(:place) : Place.first
-    @google_resp ||= {
+    if Place.first.nil?
+      place = FactoryGirl.create(:place)
+    else
+      place = Place.first
+    end
+    @google_resp = {
       "place_id" => place.gid,
       "name"     => place.name,
       "geometry" => {

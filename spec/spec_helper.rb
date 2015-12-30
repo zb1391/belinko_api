@@ -5,6 +5,7 @@ require 'rspec/rails'
 
 require 'devise'
 require "shoulda/matchers"
+require 'database_cleaner'
 
 # set OmniAuth in test mode
 OmniAuth.config.test_mode = true
@@ -33,7 +34,7 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   # ## Mock Framework
-  #
+#
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
   #
   # config.mock_with :mocha
@@ -83,6 +84,12 @@ RSpec.configure do |config|
   config.include Request::JsonHelpers, :type => :controller
 
   config.include GooglePlacesHelpers
+
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
 
 end
 

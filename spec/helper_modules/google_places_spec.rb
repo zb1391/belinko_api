@@ -61,18 +61,6 @@ describe GooglePlaces::GooglePlace do
       expect(google_place.place.id.nil?).to eql(false)
     end
 
-    describe "when the place does not yet exist" do
-      before(:each) do
-        place = Place.last
-        @google_resp["place_id"] = "#{place.gid.to_i+1}"
-      end
-
-      it "creates a new place" do
-        count = Place.count
-        GooglePlaces::GooglePlace.new(google_resp: @google_resp)
-        expect(Place.count).to eql(count+1)
-      end
-    end
   end
 
   describe "#add_reviews" do

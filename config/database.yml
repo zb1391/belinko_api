@@ -11,9 +11,9 @@ default: &default
 
 development:
   adapter: mysql
-  database: belinko
-  username: <%= ENV['MYSQL_USR'] %>
-  password: <%= ENV['MYSQL_PW'] %>
+  database: belinko_test
+  username: root # <%= ENV['MYSQL_USR'] %>
+  password: george #<%= ENV['MYSQL_PW'] %>
   host: localhost
 
 # Warning: The database defined as "test" will be erased and
@@ -22,8 +22,8 @@ development:
 test:
   adapter: mysql
   database: belinko_test
-  username: <%= ENV['MYSQL_USR'] %>
-  password: <%= ENV['MYSQL_PW'] %>
+  username: root #<%= ENV['MYSQL_USR'] %>
+  password: george #<%= ENV['MYSQL_PW'] %>
   host: localhost
 
 production:
