@@ -1,4 +1,4 @@
-module GooglePlaces
+module GooglePlacesApi
   class GooglePlace
     attr_accessor :google_resp, :place
 

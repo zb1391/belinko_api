@@ -11,7 +11,7 @@ default: &default
 
 development:
   adapter: mysql
-  database: belinko_test
+  database: belinko
   username: root # <%= ENV['MYSQL_USR'] %>
   password: george #<%= ENV['MYSQL_PW'] %>
   host: localhost
