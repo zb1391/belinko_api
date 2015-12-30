@@ -82,6 +82,8 @@ RSpec.configure do |config|
   # Including to test requests
   config.include Request::JsonHelpers, :type => :controller
 
+  config.include GooglePlacesHelpers
+
 end
 
 Shoulda::Matchers.configure do |config|
