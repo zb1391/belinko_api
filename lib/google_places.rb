@@ -3,7 +3,7 @@ module GooglePlaces
   TYPES   = "food"
   API_KEY = ENV["GOOGLE_PLACES_KEY"]
 
-  def self.build_url(options = {})
+  def build_url(options = {})
     raise ArgumentError, 'latitude is a required option' unless options[:latitude]
     raise ArgumentError, 'longitude is a required option' unless options[:longitude]
     radius = options[:radius] || RADIUS
