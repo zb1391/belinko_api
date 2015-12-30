@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151229155357) do
+ActiveRecord::Schema.define(version: 20151230132151) do
 
   create_table "places", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -19,8 +19,10 @@ ActiveRecord::Schema.define(version: 20151229155357) do
     t.float    "longitude",  limit: 24
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.integer  "gid",        limit: 4
   end
 
+  add_index "places", ["gid"], name: "index_places_on_gid", using: :btree
   add_index "places", ["latitude"], name: "index_places_on_latitude", using: :btree
   add_index "places", ["longitude"], name: "index_places_on_longitude", using: :btree
 
