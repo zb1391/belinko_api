@@ -7,23 +7,6 @@ include GooglePlacesApi
 include GooglePlacesHelpers
 
 describe GooglePlacesApi::Searcher do
-  describe "#initialize" do
-    it "raises an error when missing the latitude argument" do
-      expect{GooglePlacesApi::Searcher.new(longitude: 123) }.to raise_error(ArgumentError)
-    end
-
-    it "raises an error whem missing the longitude argument" do
-      expect{GooglePlacesApi::Searcher.new(latitude: 123) }.to raise_error(ArgumentError)
-    end
-
-    describe "when no additional options are passed" do
-      it "uses the defaults" do
-        places = GooglePlacesApi::Searcher.new(latitude: 123, longitude: 456)
-        expected = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=123,456&radius=#{Searcher::RADIUS}&types=#{Searcher::TYPES}&key=#{Searcher::API_KEY}"
-        expect(places.url).to eql(expected)
-      end
-    end
-  end
   
   describe "#parse_body" do
     before(:each) do
