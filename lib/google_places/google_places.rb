@@ -7,12 +7,12 @@ module GooglePlacesApi
   TYPES   = "food"
   API_KEY = ENV["GOOGLE_PLACES_KEY"]
 
-    # make a request to the google places api
-    def self.search!(options = {})
-      places = GooglePlacesApi::GooglePlaces.new(options)
-      places.search
-      return places
-    end
+  # make a request to the google places api
+  def self.search!(options = {})
+    places = GooglePlacesApi::GooglePlaces.new(options)
+    places.search
+    return places
+  end
 
   class GooglePlaces
 
@@ -23,14 +23,6 @@ module GooglePlacesApi
       @url    = build_url(options)
       @places = []
     end
-
-    # make a request to the google places api
-    def self.search!(options = {})
-      places = self.class.new(options)
-      places.search
-      return places
-    end
-
 
     # make a request to the google places api
     def search(options = {})
@@ -69,13 +61,10 @@ module GooglePlacesApi
     # and allow for things like text-search vs radar search...
     def parse_body(response)
       response = JSON.parse(response)
-
       @status = response["status"]
       @error  = response["error_message"]
       
-      if @status == "OK"
-        @places = set_places(response["results"])
-      end
+      set_places(response["results"])
     end
 
     def set_places(results)
@@ -83,7 +72,5 @@ module GooglePlacesApi
         @places << GooglePlacesApi::GooglePlace.new(google_resp: google_place)
       end
     end
-
   end
-
 end

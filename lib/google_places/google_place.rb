@@ -1,6 +1,6 @@
 module GooglePlacesApi
   class GooglePlace
-    attr_accessor :google_resp, :place
+    attr_reader :google_resp, :place
 
     def initialize(options={})
       @google_resp = options[:google_resp]
@@ -13,7 +13,6 @@ module GooglePlacesApi
       
       add_reviews
     end
-
     
     private
     def add_reviews

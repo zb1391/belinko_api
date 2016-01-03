@@ -30,7 +30,7 @@ describe GooglePlacesApi::GooglePlaces do
       @response = {
         "status" => "OK",
         "results" => [GooglePlacesHelpers.google_place_response]
-      }
+      }.to_json
       @places = GooglePlacesApi::GooglePlaces.new(latitude: 1, longitude: 2)
       @places.send :parse_body, @response
     end
