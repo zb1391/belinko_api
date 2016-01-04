@@ -13,7 +13,7 @@ module GooglePlacesApi
       raise ArgumentError, 'longitude is a required option' unless options[:longitude]
       radius = options[:radius] || RADIUS
       types  = options[:type]   || TYPES
-      url = ("https://maps.googleapis.com/maps/api/place/radarsearch/json?" +
+      url = ("https://maps.googleapis.com/maps/api/place/nearbysearch/json?" +
              "location=#{options[:latitude]},#{options[:longitude]}" +
              "&radius=#{radius}" +
              "&types=#{types}" +
@@ -21,10 +21,12 @@ module GooglePlacesApi
 
       url += "&keyword=#{options[:keyword]}"     if options[:keyword]
       url += "&name=#{options[:name]}"           if options[:name]
-      url += "&opennow"                          if options[:opennow]
+      url += "&opennow=true"                     if options[:opennow]
       url += "&rankby=#{options[:rankby]}"       if options[:rankby]
       url += "&pagetoken=#{options[:pagetoken]}" if options[:pagetoken]
       url += "&zagatselected"                    if options[:zagatselected]
+      url += "&minprice=#{options[:minprice]}"   if options[:minprice]
+      url += "&maxprice=#{options[:maxprice]}"   if options[:maxprice]
       return url
     end
   end

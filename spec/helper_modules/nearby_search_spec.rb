@@ -18,7 +18,7 @@ describe GooglePlacesApi::NearbySearch do
     describe "when no additional options are passed" do
       it "uses the defaults" do
         places = GooglePlacesApi::NearbySearch.new(latitude: 123, longitude: 456)
-        expected = "https://maps.googleapis.com/maps/api/place/radarsearch/json?location=123,456&radius=#{Searcher::RADIUS}&types=#{Searcher::TYPES}&key=#{Searcher::API_KEY}"
+        expected = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=123,456&radius=#{Searcher::RADIUS}&types=#{Searcher::TYPES}&key=#{Searcher::API_KEY}"
         expect(places.url).to eql(expected)
       end
     end
@@ -33,6 +33,8 @@ describe GooglePlacesApi::NearbySearch do
           rankby: "distance",
           pagetoken: "abc-123",
           zagatselected: true,
+          minprice: 0,
+          maxprice: 4,
         }
         @places = GooglePlacesApi::NearbySearch.new(options)
       end
@@ -55,6 +57,14 @@ describe GooglePlacesApi::NearbySearch do
 
       it "includes zagatselected in the url" do
         expect(@places.url).to include("&zagatselected")
+      end
+
+      it "includes minprice in the url" do
+        expect(@places.url).to include("&minprice=0")
+      end
+
+      it "includes maxprice in the url" do
+        expect(@places.url).to include("&maxprice=4")
       end
     end
   end
