@@ -1,6 +1,6 @@
-require_relative "./radar_search.rb"
-require_relative "./text_search.rb"
-require_relative "./nearby_search.rb"
+require_relative "./google_places_api/radar_search.rb"
+require_relative "./google_places_api/text_search.rb"
+require_relative "./google_places_api/nearby_search.rb"
 module GooglePlacesApi
   # radius is in meters ~ 2 miles
   RADIUS    = 3000

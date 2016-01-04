@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-require "#{Rails.root}/lib/google_places/radar_search.rb"
+require "#{Rails.root}/lib/google_places/google_places_api/radar_search.rb"
 
 include GooglePlacesApi
 include GooglePlacesHelpers
