@@ -1,19 +1,6 @@
 
 require 'net/http'
-
 module GooglePlacesApi
-  # radius is in meters ~ 2 miles
-  RADIUS  = 3000
-  TYPES   = "food"
-  API_KEY = ENV["GOOGLE_PLACES_KEY"]
-
-  # make a request to the google places api
-  def self.search!(options = {})
-    places = GooglePlacesApi::GooglePlaces.new(options)
-    places.search
-    return places
-  end
-
   class Searcher
     attr_reader :url, :status, :error, :places
 

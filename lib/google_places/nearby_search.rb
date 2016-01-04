@@ -1,4 +1,4 @@
-require_relative './google_places'
+require_relative './searcher.rb'
 
 module GooglePlacesApi
   class NearbySearch < GooglePlacesApi::Searcher
