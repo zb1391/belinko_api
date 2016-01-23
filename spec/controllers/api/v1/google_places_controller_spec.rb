@@ -64,4 +64,31 @@ RSpec.describe Api::V1::GooglePlacesController, type: :controller do
       end
     end
   end
+
+  describe "GET #text_search" do
+    describe "when query is a missing param" do
+      before(:each) do
+        get :text_search
+      end
+      it { should respond_with 200 }
+
+      it "returns a query error" do
+        resp = json_response
+        expect(resp[:errors][:query]).to eql("query is a required option")
+      end
+    end
+
+    describe "when query is present" do
+      before(:each) do
+        get :text_search, { query: 'test' }
+      end
+
+      it { should respond_with 200 }
+
+      it "returns an array of places" do
+        resp = json_response
+        expect(resp[:places].empty?).to eql(false)
+      end
+    end
+  end
 end
