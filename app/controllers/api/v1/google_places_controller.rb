@@ -7,4 +7,9 @@ class Api::V1::GooglePlacesController < ApplicationController
     render json: res.json_response, status: 200
   end
 
+  def nearby_search
+    res = GooglePlacesApi.search!("nearby",params)
+    render json: res.json_response, status: 200
+  end
+
 end

@@ -5,6 +5,10 @@ class FakeGooglePlaces < Sinatra::Base
     respond_json 200, 'radarsearch.json'
   end
 
+  get '/maps/api/place/nearbysearch/json' do
+    respond_json 200, 'nearbysearch.json'
+  end
+
   private
 
   def respond_json(response_code, file_name)

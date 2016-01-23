@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       devise_for :users, :module => "api/v1", controllers: { omniauth_callbacks: "api/v1/omniauth_callbacks" } 
       
       get 'google_places/radar_search', to: 'google_places#radar_search'
+      get 'google_places/nearby_search', to: 'google_places#nearby_search'
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.
