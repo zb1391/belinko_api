@@ -6,16 +6,16 @@ RSpec.describe Api::V1::GooglePlacesController, type: :controller do
       before(:each) do
         get :radar_search
       end
-      it { should respond_with 400 }
+      it { should respond_with 200 }
 
       it "returns a lat error" do
         resp = json_response
-        expect(resp[:errors][:latitude]).to eql("latitude is required")
+        expect(resp[:errors][:latitude]).to eql("latitude is a required option")
       end
 
       it "returns a long error" do
         resp = json_response
-        expect(resp[:errors][:longitude]).to eql("longitude is required")
+        expect(resp[:errors][:longitude]).to eql("longitude is a required option")
       end
     end
 
