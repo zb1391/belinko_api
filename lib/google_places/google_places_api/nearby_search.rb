@@ -3,14 +3,18 @@ require_relative './searcher.rb'
 module GooglePlacesApi
   class NearbySearch < GooglePlacesApi::Searcher
     def initialize(options={})
-      @url = build_url(options)
       super(options)
+      check_required_options(options)
+      @url = build_url(options)
     end
 
     private
+    def check_required_options(options = {})
+      @error[:latitude]  = 'latitude is a required option' unless options[:latitude]
+      @error[:longitude] = 'longitude is a required option' unless options[:longitude]
+    end
+
     def build_url(options = {})
-      raise ArgumentError, 'latitude is a required option' unless options[:latitude]
-      raise ArgumentError, 'longitude is a required option' unless options[:longitude]
       radius = options[:radius] || RADIUS
       types  = options[:type]   || TYPES
       url = ("https://maps.googleapis.com/maps/api/place/nearbysearch/json?" +

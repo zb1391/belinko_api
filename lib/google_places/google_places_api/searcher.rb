@@ -6,10 +6,13 @@ module GooglePlacesApi
 
     def initialize(options = {})
       @places = []
+      @error = {}
     end
 
     # make a request to the google places api
     def search(options = {})
+      return if @error.keys.any?
+
       url = URI.parse(@url)
       req = Net::HTTP::Get.new(url.to_s)
       http = Net::HTTP.new(url.host, url.port)

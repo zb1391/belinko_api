@@ -3,17 +3,23 @@ require_relative './searcher.rb'
 module GooglePlacesApi
   class TextSearch < GooglePlacesApi::Searcher
     def initialize(options={})
-      @url = build_url(options)
       super(options)
+      check_required_options(options)
+      @url = build_url(options)
     end
 
     private
+    def check_required_options(options = {})
+      @error[:query]  = 'query is a required option' unless options[:query]
+    end
+
     def build_url(options = {})
-      raise ArgumentError, 'query is a required option' unless options[:query]
       radius = options[:radius] || RADIUS
       types  = options[:type]   || TYPES
+      query  = options[:query]  || ''
+
       url = ("https://maps.googleapis.com/maps/api/place/textsearch/json?" +
-             "query=#{options[:query].gsub(/\s/,"+")}" +
+             "query=#{query.gsub(/\s/,"+")}" +
              "&types=#{types}" +
              "&key=#{API_KEY}")
       

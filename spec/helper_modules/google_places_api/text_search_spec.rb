@@ -7,8 +7,9 @@ include GooglePlacesHelpers
 
 describe GooglePlacesApi::TextSearch do
   describe "#initialize" do
-    it "raises an error when missing the query argument" do
-      expect{GooglePlacesApi::TextSearch.new }.to raise_error(ArgumentError)
+    it "sets error.latitude when the option is missing" do
+      g = GooglePlacesApi::TextSearch.new
+      expect(g.error[:query]).to eql('query is a required option')
     end
 
     describe "when no additional options are passed" do

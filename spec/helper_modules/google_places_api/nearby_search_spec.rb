@@ -7,12 +7,15 @@ include GooglePlacesHelpers
 
 describe GooglePlacesApi::NearbySearch do
   describe "#initialize" do
-    it "raises an error when missing the latitude argument" do
-      expect{GooglePlacesApi::NearbySearch.new(longitude: 123) }.to raise_error(ArgumentError)
+
+    it "sets error.latitude when the option is missing" do
+      g = GooglePlacesApi::NearbySearch.new(longitude: 123)
+      expect(g.error[:latitude]).to eql('latitude is a required option')
     end
 
-    it "raises an error whem missing the longitude argument" do
-      expect{GooglePlacesApi::NearbySearch.new(latitude: 123) }.to raise_error(ArgumentError)
+    it "sets error.longitude when the option is missing" do
+      g = GooglePlacesApi::NearbySearch.new(latitude: 123)
+      expect(g.error[:longitude]).to eql('longitude is a required option')
     end
 
     describe "when no additional options are passed" do
