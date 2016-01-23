@@ -1,0 +1,39 @@
+{
+   "html_attributions" : [],
+   "results" : [
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 40.7389968,
+               "lng" : -73.992368
+            }
+         },
+         "id" : "f03d94f6993a9483981c088e548cac86bf53bade",
+         "place_id" : "ChIJd8ak_KJZwokR3SZJfV3v1Kk",
+         "reference" : "CnRjAAAAamU0pdo9_-LWX1MAGXtj_e5m4yPSsiyfkHxtcYR8uif5VYdv77ybDIsomyaq7zo_wUptDXOJc2GQgI8uzvyU6jeh8z4JB7A4LnIlgobUP5qlgbY2onS_YlrGzd6HaJPyM023gvjnQbrEdYbXO5T7RhIQ8t3YJ5fZtytgLCg2jNpPxxoUih0Zx0NfSUzszjbe1CKCry7WfB0"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 40.7628915,
+               "lng" : -73.9753618
+            }
+         },
+         "id" : "39490b24d00786e6176adf4c6192e0eda0c2a493",
+         "place_id" : "ChIJxfoeGvpYwokRM4XR2G_fQHw",
+         "reference" : "CmRdAAAAK2Hv7kVsqgR6ROGmZce0IcF5XftPBclLhmsAp_mfb7MrTIKp9TkycXYIvxx7cXvedQEe5C69vzN7zLDpE4AzZ_9RxNbEZ4Pj46wGnHHrZSHarxXXgmTA04uxeI_PVazbEhCuyYmkqJ75Z7hYqqPt4pX0GhR3wnJLbIi_EUGBoXiVGgDHovZhag"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 40.7554154,
+               "lng" : -73.9705757
+            }
+         },
+         "id" : "f8de7383b27e8d9660a9db87122ece9d072437ed",
+         "place_id" : "ChIJszmN0-JYwokRk-XCDbO6X_Y",
+         "reference" : "CnRpAAAAtPddVyhUE6Kk4IQjBYhCfeooBqVmSoxeNpGMmC_EfVcQiTfVy6TZleaaBs921IRRyFY3oWiVxXq2iyhEzsuxm6FHkIB-OQWhCBotYsEcvoVnjcVaBNfIbBzTgnWzJYYRoqybt-7m1Xm5oywguauXMBIQ3WFOhuPC6xQRmWB72C0KhxoUD-RQ3sjsS6pObvbIFZ8U_e-Ntes"
+      }
+   ],
+   "status" : "OK"
+}

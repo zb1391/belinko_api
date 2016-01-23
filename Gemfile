@@ -69,5 +69,7 @@ group :test do
   gem "factory_girl_rails"
   gem 'ffaker'
   gem "shoulda-matchers"
+  gem "sinatra"
+  gem "webmock"
 end
 

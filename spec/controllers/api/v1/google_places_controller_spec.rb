@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe Api::V1::GooglePlacesController, type: :controller do
   describe "GET #radar_search" do
-    describe "when both lat and long are missing params" do
+    describe "when both latitude and longitude are missing params" do
       before(:each) do
         get :radar_search
       end
@@ -10,13 +10,21 @@ RSpec.describe Api::V1::GooglePlacesController, type: :controller do
 
       it "returns a lat error" do
         resp = json_response
-        expect(resp[:errors][:lat]).to eql("lat is required")
+        expect(resp[:errors][:latitude]).to eql("latitude is required")
       end
 
       it "returns a long error" do
         resp = json_response
-        expect(resp[:errors][:long]).to eql("long is required")
+        expect(resp[:errors][:longitude]).to eql("longitude is required")
       end
+    end
+
+    describe "when latitude and longitude are present" do
+      before(:each) do
+        get :radar_search, { latitude: 47, longitude: 47 }
+      end
+
+      it { should respond_with 200 }
     end
   end
 end

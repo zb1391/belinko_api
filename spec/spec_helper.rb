@@ -6,6 +6,11 @@ require 'rspec/rails'
 require 'devise'
 require "shoulda/matchers"
 require 'database_cleaner'
+require 'webmock/rspec'
+include WebMock::API
+
+# disable external api requests
+WebMock.disable_net_connect!(allow_localhost: true)
 
 # set OmniAuth in test mode
 OmniAuth.config.test_mode = true
@@ -89,6 +94,14 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+  end
+
+
+  # stub google places requests
+  config.before(:each) do
+#stub_request(:any, /maps.googleapis.com/).with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).to_rack(FakeGooglePlaces)
+#.to_return(status: 200, body: "stubbed response", headers: {})
+    stub_request(:any, /maps.googleapis.com/).to_rack(FakeGooglePlaces)
   end
 
 end

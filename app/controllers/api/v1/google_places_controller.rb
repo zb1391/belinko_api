@@ -7,18 +7,19 @@ class Api::V1::GooglePlacesController < ApplicationController
     if(errors)
       render json: { errors: errors }, status: 400
     else
-      render json: {}, status: 200
+      places = GooglePlacesApi.search!("radar",params)
+      render json: {places: places.places}, status: 200
     end
   end
 
 
   private
   def missing_params(params = {})
-    return nil if params[:lat] && params[:long]
+    return nil if params[:latitude] && params[:longitude]
     
     errors = {}
-    errors[:lat]  = "lat is required"  unless params[:lat]
-    errors[:long] = "long is required" unless params[:long]
+    errors[:latitude]  = "latitude is required"  unless params[:latitude]
+    errors[:longitude] = "longitude is required" unless params[:longitude]
     return errors
   end
 end
