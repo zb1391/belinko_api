@@ -27,6 +27,30 @@ describe GooglePlacesApi::Searcher do
       expect(@places.places.length).to eql(1)
     end
   end
+
+  describe "#json_response" do
+    before(:each) do
+      @response = {
+        "status" => "OK",
+        "results" => [GooglePlacesHelpers.google_place_response]
+      }.to_json
+      @places = GooglePlacesApi::Searcher.new(latitude: 1, longitude: 2)
+      @places.send :parse_body, @response
+      @results = JSON.parse(@places.json_response)
+    end
+
+    it "returns a status" do
+      expect(@results["status"]).to eql("OK")
+    end
+
+    it "returns no errors" do
+      expect(@results["errors"]).to eql(nil)
+    end
+
+    it "returns places" do
+      expect(JSON.parse(@results["places"][0]).nil?).to eql(false)
+    end
+  end
 end
 
 describe GooglePlacesApi::GooglePlace do
@@ -45,6 +69,13 @@ describe GooglePlacesApi::GooglePlace do
       expect(google_place.place.id.nil?).to eql(false)
     end
 
+  end
+
+  describe "#json_response" do
+    it "returns the google_resp as json" do
+      google_place = GooglePlacesApi::GooglePlace.new(google_resp: @google_resp)
+      expect(google_place.json_response).to eql(google_place.google_resp.to_json)
+    end
   end
 
   describe "#add_reviews" do

@@ -18,6 +18,15 @@ module GooglePlacesApi
       parse_body(res.body)
     end
 
+    def json_response
+      places_response = @places.map{ |p| p.json_response }
+      {
+        status: @status,
+        errors: @error,
+        places: places_response,
+      }.to_json
+    end
+
     private
     # parse the response from the google api
     def parse_body(response)

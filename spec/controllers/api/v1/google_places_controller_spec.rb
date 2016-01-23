@@ -25,6 +25,11 @@ RSpec.describe Api::V1::GooglePlacesController, type: :controller do
       end
 
       it { should respond_with 200 }
+
+      it "returns an array of places" do
+        resp = json_response
+        expect(resp[:places].empty?).to eql(false)
+      end
     end
   end
 end

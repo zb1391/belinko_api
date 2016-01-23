@@ -13,7 +13,12 @@ module GooglePlacesApi
       
       add_reviews
     end
-    
+
+    def json_response
+      @google_resp.to_json
+    end    
+
+
     private
     def add_reviews
       @google_resp["reviews"] = []
