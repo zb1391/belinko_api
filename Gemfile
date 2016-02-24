@@ -44,6 +44,10 @@ gem 'omniauth-facebook'
 # for debugging
 gem 'pry'
 
+# for cross origin requests
+gem 'rack-cors', :require => 'rack/cors'
+
+gem 'httparty'
 
 gem 'database_cleaner'
 
