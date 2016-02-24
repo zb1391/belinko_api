@@ -11,7 +11,9 @@ Rails.application.routes.draw do
       
       get 'google_places/radar_search', to: 'google_places#radar_search'
       get 'google_places/nearby_search', to: 'google_places#nearby_search'
-      get 'google_places/text_search', to: 'google_places#text_search'
+      get 'v1/google_places/text_search', to: 'google_places#text_search'
+      get 'v1/test', to: 'google_places#test'
+      post 'v1/login', to: 'google_places#login_test'
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

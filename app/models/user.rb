@@ -13,12 +13,12 @@ class User < ActiveRecord::Base
   end
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
-      user.email = auth.info.email
+    where(provider: auth["provider"], uid: auth["uid"]).first_or_initialize.tap do |user|
+      user.email = "user_#{auth["uid"]}@belinko.com"
       user.password = Devise.friendly_token[0,20]
-      user.provider = auth.provider
-      user.uid = auth.uid
-      user.auth_token = auth.credentials.token
+      user.provider = auth["provider"]
+      user.uid = auth["uid"]
+      user.auth_token = auth["token"]
       user.save
       # user.name = auth.info.name   # assuming the user model has a name
     end

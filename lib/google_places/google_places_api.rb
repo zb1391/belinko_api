@@ -15,13 +15,13 @@ module GooglePlacesApi
 
   # make a request to the google places api
   def self.search!(type,options = {})
-    places = get_instance_type(type).new(options)
+    places = self.get_instance_type(type).new(options)
     places.search
     return places
   end
 
   # return a type of searcher
-  def get_instance_type(type)
+  def self.get_instance_type(type)
     raise ArgumentError, 'unknown type' unless INSTANCES[type]
     return INSTANCES[type]
   end
