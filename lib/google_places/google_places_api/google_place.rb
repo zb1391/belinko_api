@@ -21,10 +21,7 @@ module GooglePlacesApi
 
     private
     def add_reviews
-      @google_resp["reviews"] = []
-      @place.reviews.each do |review|
-        @google_resp["reviews"] << review.as_json
-      end
+      @google_resp["reviews"] = @place.reviews.count || 0
     end
   end
 end

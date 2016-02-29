@@ -88,9 +88,7 @@ describe GooglePlacesApi::GooglePlace do
     it "adds reviews to the google_resp" do
       google_place = GooglePlacesApi::GooglePlace.new(google_resp: @google_resp)
       google_place.send :add_reviews
-      @place.reviews.each do |review|
-        expect(@google_resp["reviews"]).to include(review.as_json)
-      end
+      expect(@google_resp["reviews"]).to eql(3)
     end
   end
 end
