@@ -15,12 +15,12 @@ module GooglePlacesApi
 
     def build_url(options = {})
       radius = options[:radius] || RADIUS
-      types  = options[:type]   || TYPES
+      type  = options[:type]   || TYPE
       query  = options[:query]  || ''
 
       url = ("https://maps.googleapis.com/maps/api/place/textsearch/json?" +
              "query=#{query.gsub(/\s/,"+")}" +
-             "&types=#{types}" +
+             "&type=#{type}" +
              "&key=#{API_KEY}")
       
       url += "&minprice=#{options[:minprice]}"   if options[:minprice]

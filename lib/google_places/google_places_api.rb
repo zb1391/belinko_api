@@ -2,9 +2,9 @@ require_relative "./google_places_api/radar_search.rb"
 require_relative "./google_places_api/text_search.rb"
 require_relative "./google_places_api/nearby_search.rb"
 module GooglePlacesApi
-  # radius is in meters ~ 2 miles
-  RADIUS    = 3000
-  TYPES     = "food"
+  # radius is in meters ~ 1 mile
+  RADIUS    = 1500
+  TYPE     = "restaurant"
   API_KEY   = ENV["GOOGLE_PLACES_KEY"]
   INSTANCES = {
     "text"   => GooglePlacesApi::TextSearch,

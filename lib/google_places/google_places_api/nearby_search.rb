@@ -16,11 +16,11 @@ module GooglePlacesApi
 
     def build_url(options = {})
       radius = options[:radius] || RADIUS
-      types  = options[:type]   || TYPES
+      type  = options[:type]   || TYPE
       url = ("https://maps.googleapis.com/maps/api/place/nearbysearch/json?" +
              "location=#{options[:latitude]},#{options[:longitude]}" +
              "&radius=#{radius}" +
-             "&types=#{types}" +
+             "&type=#{type}" +
              "&key=#{API_KEY}")
 
       url += "&keyword=#{options[:keyword]}"     if options[:keyword]
