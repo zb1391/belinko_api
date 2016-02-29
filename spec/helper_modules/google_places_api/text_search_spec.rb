@@ -15,7 +15,7 @@ describe GooglePlacesApi::TextSearch do
     describe "when no additional options are passed" do
       it "uses the defaults" do
         places = GooglePlacesApi::TextSearch.new(query: "test search")
-        expected = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=test+search&types=#{Searcher::TYPES}&key=#{Searcher::API_KEY}"
+        expected = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=test+search&type=#{Searcher::TYPE}&key=#{Searcher::API_KEY}"
         expect(places.url).to eql(expected)
       end
     end

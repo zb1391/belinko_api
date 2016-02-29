@@ -21,7 +21,7 @@ describe GooglePlacesApi::NearbySearch do
     describe "when no additional options are passed" do
       it "uses the defaults" do
         places = GooglePlacesApi::NearbySearch.new(latitude: 123, longitude: 456)
-        expected = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=123,456&radius=#{Searcher::RADIUS}&types=#{Searcher::TYPES}&key=#{Searcher::API_KEY}"
+        expected = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=123,456&radius=#{Searcher::RADIUS}&type=#{Searcher::TYPE}&key=#{Searcher::API_KEY}"
         expect(places.url).to eql(expected)
       end
     end
