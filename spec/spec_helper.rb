@@ -102,6 +102,7 @@ RSpec.configure do |config|
 #stub_request(:any, /maps.googleapis.com/).with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).to_rack(FakeGooglePlaces)
 #.to_return(status: 200, body: "stubbed response", headers: {})
     stub_request(:any, /maps.googleapis.com/).to_rack(FakeGooglePlaces)
+    stub_request(:any, /graph.facebook/).to_rack(FakeFacebookGraph)
   end
 
 end

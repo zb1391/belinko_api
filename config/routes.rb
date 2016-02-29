@@ -4,16 +4,12 @@ Rails.application.routes.draw do
   devise_for :users
   namespace :api, defaults: { format: :json }  do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
-      #resources :users, only: [:show, :create, :update, :destroy]
-      devise_for :users, :module => "api/v1", controllers: { omniauth_callbacks: "api/v1/omniauth_callbacks" } 
-
+      resources :users, only: [:create]
       resources :reviews, :only => [:create]
       
       get 'google_places/radar_search', to: 'google_places#radar_search'
       get 'google_places/nearby_search', to: 'google_places#nearby_search'
-      get 'v1/google_places/text_search', to: 'google_places#text_search'
-      get 'v1/test', to: 'google_places#test'
-      post 'v1/login', to: 'google_places#login_test'
+      get 'google_places/text_search', to: 'google_places#text_search'
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

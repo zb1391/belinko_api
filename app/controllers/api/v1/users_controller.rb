@@ -1,3 +1,5 @@
+require_relative "../../../../lib/omniauth/facebook.rb"
+
 class Api::V1::UsersController < ApplicationController
   respond_to :json
 
@@ -6,11 +8,18 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def create
-    user = User.new(user_params)
-    if user.save
-      render json: user, status: 201, location: [:api, user]
-    else
-      render json: { errors: user.errors }, status: 422
+    begin
+      user_creds = Omniauth::Facebook.authenticate(params[:code])
+      @user = User.from_omniauth(user_creds)
+      if @user.persisted?
+        @user.update_auth_token(user_creds["token"])
+        sign_in @user, event: :authentication
+        render json: user_creds, status: 201
+      else
+        raise "Failed to Log in"
+      end
+    rescue
+      render json: { errors: { facebook: "Failed to log in" } }, status: 422
     end
   end
 
