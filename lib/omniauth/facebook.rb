@@ -78,7 +78,7 @@ module Omniauth
       {
         query: {
           code: code,
-          redirect_uri: "http://localhost:4000/my-account",
+          redirect_uri: "http://localhost:4000/login",
           client_id: "561265827354748",
           client_secret: "ebb4ed4353b0e928c0b1093daab7b8af"
         }
