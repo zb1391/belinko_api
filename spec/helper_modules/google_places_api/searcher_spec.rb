@@ -36,7 +36,7 @@ describe GooglePlacesApi::Searcher do
       }.to_json
       @places = GooglePlacesApi::Searcher.new(latitude: 1, longitude: 2)
       @places.send :parse_body, @response
-      @results = JSON.parse(@places.json_response)
+      @results = @places.json_response
     end
 
     it "returns a status" do
@@ -48,7 +48,7 @@ describe GooglePlacesApi::Searcher do
     end
 
     it "returns places" do
-      expect(JSON.parse(@results["places"][0]).nil?).to eql(false)
+      expect(@results["places"][0].nil?).to eql(false)
     end
   end
 end

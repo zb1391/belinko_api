@@ -1,4 +1,4 @@
-
+require_relative './google_place.rb'
 require 'net/http'
 module GooglePlacesApi
   class Searcher
@@ -22,12 +22,13 @@ module GooglePlacesApi
     end
 
     def json_response
-      places_response = @places.map{ |p| p.json_response }
+      # google_resp contains all of the json for each place
+      places_response = @places.map{ |p| p.google_resp }
       {
         status: @status,
         errors: @error,
-        places: places_response,
-      }.to_json
+        places: places_response.as_json,
+      }.as_json
     end
 
     private
