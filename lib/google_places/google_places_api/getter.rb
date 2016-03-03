@@ -3,7 +3,7 @@ require_relative './searcher.rb'
 
 require 'net/http'
 module GooglePlacesApi
-  class PlacesDetail < GooglePlacesApi::Searcher
+  class Getter < GooglePlacesApi::Searcher
     attr_reader :place, :place_id
 
     def initialize(id)

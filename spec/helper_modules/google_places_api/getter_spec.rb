@@ -6,14 +6,14 @@ require "#{Rails.root}/lib/google_places/google_places_api/getter.rb"
 include GooglePlacesApi
 include GooglePlacesHelpers
 
-describe GooglePlacesApi::PlacesDetail do
+describe GooglePlacesApi::Getter do
   describe "#parse_body" do
     before(:each) do
       @response = {
         "status" => "OK",
         "result" => GooglePlacesHelpers.google_place_response
       }.to_json
-      @getter = GooglePlacesApi::PlacesDetail.new("123")
+      @getter = GooglePlacesApi::Getter.new("123")
       @getter.send :parse_body, @response
     end
 
@@ -32,7 +32,7 @@ describe GooglePlacesApi::PlacesDetail do
         "status" => "OK",
         "results" => GooglePlacesHelpers.google_place_response
       }.to_json
-      @getter = GooglePlacesApi::PlacesDetail.new("123")
+      @getter = GooglePlacesApi::Getter.new("123")
       @getter.send :parse_body, @response
       @results = @getter.json_response
     end
@@ -47,6 +47,28 @@ describe GooglePlacesApi::PlacesDetail do
 
     it "returns a place" do
       expect(@results["place"].nil?).to eql(false)
+    end
+  end
+end
+
+describe GooglePlacesApi::GooglePlaceDetail do
+  before(:each) do
+    @google_resp = GooglePlacesHelpers.google_place_response
+  end
+
+  describe "#add_reviews" do
+    before(:each) do
+      @place = FactoryGirl.create(:place, gid: "#{Place.count+1}")
+      3.times { FactoryGirl.create(:review, place: @place) }
+      @google_resp["place_id"] = @place.gid
+    end
+
+    it "adds reviews to the google_resp" do
+      google_place = GooglePlacesApi::GooglePlaceDetail.new(google_resp: @google_resp)
+      google_place.send :add_reviews
+      @place.reviews.each do |review|
+        expect(@google_resp["reviews"]).to include(review.as_json)
+      end
     end
   end
 end

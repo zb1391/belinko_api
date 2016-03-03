@@ -24,7 +24,7 @@ module GooglePlacesApi
 
   # make a request to the google places detail
   def self.get!(id)
-    place = GooglePlacesApi::PlacesDetail.new(id)
+    place = GooglePlacesApi::Getter.new(id)
     place.search
     return place
   end

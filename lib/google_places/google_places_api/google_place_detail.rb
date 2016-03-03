@@ -2,8 +2,13 @@ require_relative './google_place.rb'
 
 module GooglePlacesApi
   class GooglePlaceDetail < GooglePlacesApi::GooglePlace
-    def initialize(options={})
-      @google_resp = options[:google_resp] || {}
+
+    private
+    def add_reviews
+      @google_resp["reviews"] = []
+      @place.reviews.each do |review|
+        @google_resp["reviews"] << review.as_json
+      end
     end
   end
 end

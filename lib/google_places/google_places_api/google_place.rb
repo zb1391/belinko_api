@@ -3,15 +3,17 @@ module GooglePlacesApi
     attr_reader :google_resp, :place
 
     def initialize(options={})
-      @google_resp = options[:google_resp]
-       
-      @place = Place.find_or_initialize_by(gid: @google_resp["place_id"]) do |place|
-        place.name      = @google_resp["name"]
-        place.latitude  = @google_resp["geometry"]["location"]["lat"]
-        place.longitude = @google_resp["geometry"]["location"]["lng"]
-      end
+      @google_resp = options[:google_resp] || {}
       
-      add_reviews
+      unless @google_resp.empty?
+        @place = Place.find_or_initialize_by(gid: @google_resp["place_id"]) do |place|
+          place.name      = @google_resp["name"]
+          place.latitude  = @google_resp["geometry"]["location"]["lat"]
+          place.longitude = @google_resp["geometry"]["location"]["lng"]
+        end
+      
+        add_belinko_data
+      end
     end
 
     def json_response
@@ -20,6 +22,11 @@ module GooglePlacesApi
 
 
     private
+
+    def add_belinko_data
+      add_reviews
+    end
+
     def add_reviews
       @google_resp["reviews"] = @place.reviews.count || 0
     end
