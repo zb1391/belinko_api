@@ -91,4 +91,32 @@ RSpec.describe Api::V1::GooglePlacesController, type: :controller do
       end
     end
   end
+
+  describe "GET #detail" do
+    describe "when query is missing a param" do
+      before(:each) do
+        get :detail
+      end
+
+      it { should respond_with 200 }
+
+      it "returns an id error" do
+        resp = json_response
+        expect(resp[:errors][:id]).to eql("id is a required option")
+      end
+    end
+
+    describe "when id is present" do
+      before(:each) do
+        get :detail, { id: "123" }
+      end
+
+      it { should respond_with 200 }
+
+      it "returns a place response" do
+        resp = json_response
+        expect(resp[:place].empty?).to eql(false)
+      end
+    end
+  end
 end

@@ -10,6 +10,7 @@ module GooglePlacesApi
     end
 
     # make a request to the google places api
+    # does not make request if errors present
     def search(options = {})
       return if @error.keys.any?
 

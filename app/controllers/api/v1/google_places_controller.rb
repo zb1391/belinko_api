@@ -22,4 +22,9 @@ class Api::V1::GooglePlacesController < ApplicationController
     res = GooglePlacesApi.search!("text",params)
     render json: res.json_response, status: 200
   end
+
+  def detail
+    res = GooglePlacesApi.get!(params[:id])
+    render json: res.json_response, status: 200
+  end
 end

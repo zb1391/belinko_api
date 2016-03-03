@@ -1,6 +1,10 @@
 require 'sinatra/base'
 
 class FakeGooglePlaces < Sinatra::Base
+  get '/maps/api/place/details/json' do
+    respond_json 200, 'google_places_detail.json'
+  end
+
   get '/maps/api/place/radarsearch/json' do
     respond_json 200, 'radarsearch.json'
   end

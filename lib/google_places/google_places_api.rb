@@ -1,6 +1,8 @@
 require_relative "./google_places_api/radar_search.rb"
 require_relative "./google_places_api/text_search.rb"
 require_relative "./google_places_api/nearby_search.rb"
+require_relative "./google_places_api/getter.rb"
+
 module GooglePlacesApi
   # radius is in meters ~ 1 mile
   RADIUS    = 1500
@@ -18,6 +20,13 @@ module GooglePlacesApi
     places = self.get_instance_type(type).new(options)
     places.search
     return places
+  end
+
+  # make a request to the google places detail
+  def self.get!(id)
+    place = GooglePlacesApi::PlacesDetail.new(id)
+    place.search
+    return place
   end
 
   # return a type of searcher
