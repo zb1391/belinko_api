@@ -7,7 +7,7 @@ module GooglePlacesApi
     attr_reader :url, :status, :error, :places
 
     def initialize(options = {})
-      @places = []
+      @places = {}
       @error = {}
       @belinko_searcher = GooglePlacesApi::BelinkoSearcher.new(options)
     end
@@ -27,7 +27,8 @@ module GooglePlacesApi
 
     def json_response
       # google_resp contains all of the json for each place
-      places_response = @places.map{ |p| p.google_resp }
+      places_response = []
+      @places.each {|gid,place| places_response << place.google_resp}
       {
         status: @status,
         errors: @error,
@@ -41,6 +42,8 @@ module GooglePlacesApi
     def add_belinko_places
       nearby = @belinko_searcher.nearby_places
       nearby.each do |place|
+
+# find_by place_id === gid
         # if the place is already in the @places array, do nothing
         # otherwise add it
       end
@@ -58,7 +61,7 @@ module GooglePlacesApi
 
     def set_places(results)
       results.each do |google_place|
-        @places << GooglePlacesApi::GooglePlace.new(google_resp: google_place)
+        @places[google_place["place_id"]] = GooglePlacesApi::GooglePlace.new(google_resp: google_place)
       end
     end
   end
