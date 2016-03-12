@@ -1,5 +1,7 @@
 require_relative './google_place.rb'
+require_relative './belinko_searcher.rb'
 require 'net/http'
+
 module GooglePlacesApi
   class Searcher
     attr_reader :url, :status, :error, :places
@@ -7,6 +9,7 @@ module GooglePlacesApi
     def initialize(options = {})
       @places = []
       @error = {}
+      @belinko_searcher = GooglePlacesApi::BelinkoSearcher.new(options)
     end
 
     # make a request to the google places api
@@ -33,6 +36,16 @@ module GooglePlacesApi
     end
 
     private
+
+    # adds nearby belinko places to the google response
+    def add_belinko_places
+      nearby = @belinko_searcher.nearby_places
+      nearby.each do |place|
+        # if the place is already in the @places array, do nothing
+        # otherwise add it
+      end
+    end
+
     # parse the response from the google api
     def parse_body(response)
       response = JSON.parse(response)
@@ -40,6 +53,7 @@ module GooglePlacesApi
       @error  = response["error_message"]
 
       set_places(response["results"])
+      add_belinko_places
     end
 
     def set_places(results)
