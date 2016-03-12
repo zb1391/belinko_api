@@ -51,6 +51,23 @@ describe GooglePlacesApi::Searcher do
       expect(@results["places"][0].nil?).to eql(false)
     end
   end
+
+  describe "#add_belinko_places" do
+    before(:all) do
+      @nearby = FactoryGirl.create :place, latitude: 41.7389968, longitude: -77.992368 
+    end
+
+    describe "when the place is not already in the @places hash" do
+      before(:each) do
+        @searcher = GooglePlacesApi::Searcher.new(latitude: 41.7389968, longitude: -77.992368, radius: 1500)
+        @searcher.send :add_belinko_places
+      end
+
+      it "adds it to @places" do
+        expect(@searcher.places.keys.empty?).to eql(false)
+      end
+    end
+  end
 end
 
 describe GooglePlacesApi::GooglePlace do

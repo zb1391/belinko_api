@@ -42,14 +42,14 @@ module GooglePlacesApi
     def add_belinko_places
       nearby = @belinko_searcher.nearby_places
       nearby.each do |place|
-
-# find_by place_id === gid
-        # if the place is already in the @places array, do nothing
-        # otherwise add it
+        unless @places[place.gid]
+          @places["#{place.gid}"] = place.as_json
+        end
       end
     end
 
     # parse the response from the google api
+    # add nearby belinko places to the response
     def parse_body(response)
       response = JSON.parse(response)
       @status = response["status"]
