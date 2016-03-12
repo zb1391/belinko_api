@@ -7,8 +7,8 @@ include GooglePlacesApi
 
 describe GooglePlacesApi::BelinkoSearcher do
   before(:all) do
-    FactoryGirl.create :place, latitude: 40.7389968, longitude: -73.992368
-    FactoryGirl.create :place, latitude: 33.86879, longitude: 151.194217 
+    @nearby = FactoryGirl.create :place, latitude: 40.7389968, longitude: -73.992368
+    @too_far = FactoryGirl.create :place, latitude: 33.86879, longitude: 151.194217 
   end
   describe "#nearby_places" do
     it "returns an empty array when no radius" do
@@ -31,12 +31,13 @@ describe GooglePlacesApi::BelinkoSearcher do
 
     describe "when lat/lng/radius are all present" do
       before(:each) do
-        @searcher = GooglePlacesApi::BelinkoSearcher.new(latitude:40.7628915, longitude: -73.9753618, radius: 1500)
+        @searcher = GooglePlacesApi::BelinkoSearcher.new(latitude:40.73999, longitude: -73.9753618, radius: 1500)
       end
 
       it "returns belinko_places within the surrounding radius" do
         places = @searcher.nearby_places
-        expect(places.length).to eql(1)
+        place = places[0]
+        expect(place).to eql(@nearby)
       end
     end
   end

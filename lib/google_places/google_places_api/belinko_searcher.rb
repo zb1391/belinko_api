@@ -10,11 +10,10 @@ module GooglePlacesApi
 
     # get all belinko places nearby
     def nearby_places
-      places = []
-      if @radius && @latitude && @longitude
-        # do something
-      end
-      return places
+      return [] unless @radius && @latitude && @longitude
+
+      radius_km = @radius.to_f/1000
+      Place.within(radius_km, origin: [@latitude,@longitude])
     end
   end
 end
