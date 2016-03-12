@@ -12,4 +12,18 @@ class Place < ActiveRecord::Base
   has_many :users, through: :reviews
 
   accepts_nested_attributes_for :reviews
+
+  # for now just return latitude/longitude/gid/name
+  # maybe if we keep track of more data eventually do different things
+  # based on he type of search (nearby,radar,text)
+  def as_google_json
+    {
+      "place_id" => gid,
+      "name" => name,
+      "geometry" => {
+        "lat" => latitude,
+        "lng" => longitude,
+      }
+    }
+  end
 end

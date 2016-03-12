@@ -43,7 +43,7 @@ module GooglePlacesApi
       nearby = @belinko_searcher.nearby_places
       nearby.each do |place|
         unless @places[place.gid]
-          @places["#{place.gid}"] = place.as_json
+          @places["#{place.gid}"] = place.as_google_json
         end
       end
     end

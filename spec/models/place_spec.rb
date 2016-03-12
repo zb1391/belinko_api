@@ -34,4 +34,19 @@ RSpec.describe Place, type: :model do
       end
     end
   end
+
+  describe "#as_google_json" do
+    before(:each) do
+      @place = FactoryGirl.build :place, name: 'test', latitude: 123, longitude: '456', gid: '111'
+      @expected = { 
+        "place_id" => @place.gid,
+        "name" => @place.name,
+        "geometry" => {"lat" => @place.latitude, "lng" => @place.longitude}
+      }
+    end
+
+    it "returns the expected json" do
+      expect(@place.as_google_json).to eql(@expected)
+    end
+  end
 end
