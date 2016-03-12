@@ -1,4 +1,7 @@
 class Place < ActiveRecord::Base
+  acts_as_mappable default_units: :kms,
+                   lat_column_name: :latitude, 
+                   lng_column_name: :longitude
 
   validates :latitude, presence: true
   validates :longitude, presence: true
