@@ -5,9 +5,9 @@ module GooglePlacesApi
 
     private
     def add_reviews
-      @google_resp["reviews"] = []
+      @google_resp["belinko_reviews"] = []
       @place.reviews.each do |review|
-        @google_resp["reviews"] << review.as_json
+        @google_resp["belinko_reviews"] << review.as_json
       end
     end
   end
