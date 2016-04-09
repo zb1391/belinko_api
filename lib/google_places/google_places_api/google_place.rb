@@ -10,6 +10,8 @@ module GooglePlacesApi
           place.name      = @google_resp["name"]
           place.latitude  = @google_resp["geometry"]["location"]["lat"]
           place.longitude = @google_resp["geometry"]["location"]["lng"]
+          place.likes     = 0
+          place.dislikes  = 0
         end
       
         add_belinko_data

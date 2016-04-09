@@ -16,6 +16,6 @@ class Api::V1::ReviewsController < ApplicationController
   private
   def review_params
     params.require(:review).permit(:comment, :user_id, :place_id,
-      :place => [:name, :latitude, :longitude, :gid, :would_recommend])
+      :place => [:name, :latitude, :longitude, :gid])
   end
 end

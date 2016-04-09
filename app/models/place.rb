@@ -1,4 +1,5 @@
 class Place < ActiveRecord::Base
+  attr_accessor :would_recommend
   acts_as_mappable default_units: :kms,
                    lat_column_name: :latitude, 
                    lng_column_name: :longitude
@@ -12,6 +13,7 @@ class Place < ActiveRecord::Base
   has_many :users, through: :reviews
 
   accepts_nested_attributes_for :reviews
+  before_save :update_recommendations
 
   # for now just return latitude/longitude/gid/name
   # maybe if we keep track of more data eventually do different things
@@ -25,5 +27,14 @@ class Place < ActiveRecord::Base
         "lng" => longitude,
       }
     }
+  end
+
+  # update the places like/dislike count
+  def update_recommendations
+    if self.would_recommend
+      self.likes = (self.likes || 0) + 1
+    else
+      self.dislikes = (self.dislikes || 0) + 1
+    end
   end
 end

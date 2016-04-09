@@ -56,6 +56,25 @@ describe GooglePlacesApi::GooglePlaceDetail do
     @google_resp = GooglePlacesHelpers.google_place_response
   end
 
+  describe "#add_likes" do
+    before(:each) do
+      @place = FactoryGirl.create(:place, gid: "#{Place.count+1}", would_recommend: true)
+      @google_resp["place_id"] = @place.gid
+    end
+
+    it "adds belinko_likes to the google_resp" do
+      google_place = GooglePlacesApi::GooglePlaceDetail.new(google_resp: @google_resp)
+      google_place.send :add_likes
+      expect(@google_resp["belinko_likes"]).to eql(1)
+    end
+
+    it "adds belinko_dislikes to the google_resp" do
+      google_place = GooglePlacesApi::GooglePlaceDetail.new(google_resp: @google_resp)
+      google_place.send :add_likes
+      expect(@google_resp["belinko_dislikes"]).to eql(nil)
+    end
+  end
+
   describe "#add_reviews" do
     before(:each) do
       @place = FactoryGirl.create(:place, gid: "#{Place.count+1}")

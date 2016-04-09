@@ -17,11 +17,11 @@ ActiveRecord::Schema.define(version: 20160408215152) do
     t.string   "name",       limit: 255
     t.float    "latitude",   limit: 24
     t.float    "longitude",  limit: 24
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "gid",        limit: 255
-    t.integer  "likes",      limit: 4
-    t.integer  "dislikes",   limit: 4
+    t.integer  "likes",      limit: 4,   default: 0
+    t.integer  "dislikes",   limit: 4,   default: 0
   end
 
   add_index "places", ["gid"], name: "index_places_on_gid", using: :btree

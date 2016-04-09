@@ -9,6 +9,8 @@ RSpec.describe Place, type: :model do
   it { should respond_to(:latitude) }
   it { should respond_to(:longitude) }
   it { should respond_to(:gid) }
+  it { should respond_to(:likes) }
+  it { should respond_to(:dislikes) }
 
   it { should validate_presence_of :latitude }
   it { should validate_presence_of :longitude }
@@ -47,6 +49,20 @@ RSpec.describe Place, type: :model do
 
     it "returns the expected json" do
       expect(@place.as_google_json).to eql(@expected)
+    end
+  end
+
+  describe "#update_recommendations" do
+    it "increments likes when true" do
+      place = FactoryGirl.build :place, would_recommend: true
+      place.update_recommendations
+      expect(place.likes).to eql(1)
+    end
+
+    it "increments dislikes when false" do
+      place = FactoryGirl.build :place, would_recommend: false
+      place.update_recommendations
+      expect(place.dislikes).to eql(1)
     end
   end
 end
