@@ -1,12 +1,40 @@
+require_relative "../../lib/omniauth/facebook.rb"
+
 class User < ActiveRecord::Base
   has_many :reviews, dependent: :destroy
   has_many :places, through: :reviews
+
+  has_many :friendships, foreign_key: :user_id, dependent: :destroy
+  has_many :reverse_friendships, class_name: :Friendship, foreign_key: :friend_id, dependent: :destroy
+  has_many :friends, through: :friendships, source: :friend
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook]
+
+  # recursively add new friends from your friends list
+  # make requests to the facebook api for friends
+  # iterate over response and create friendship records
+  # repeat until the response is empty
+  def add_friends(token,next_url=nil)
+    response = Omniauth::Facebook.get_friends(token,next_url)
+    total_count = response["summary"]["total_count"]
+    return if response["data"].empty?
+    return if (total_count.nil? || self.friends.count >= total_count)
+
+    response["data"].each do |f|
+      friend = User.find_by_uid(f["id"])
+      if friend
+        Friendship.find_or_create_by(user_id: self.id, friend_id: friend.id)
+      end
+    end
+ 
+    if response["paging"]["next"]
+      add_friends(token,response["paging"]["next"])
+    end
+  end
 
   def update_auth_token(token)
     update_attributes(auth_token: token) unless token == auth_token

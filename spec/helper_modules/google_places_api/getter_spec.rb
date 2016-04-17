@@ -71,7 +71,7 @@ describe GooglePlacesApi::GooglePlaceDetail do
     it "adds belinko_dislikes to the google_resp" do
       google_place = GooglePlacesApi::GooglePlaceDetail.new(google_resp: @google_resp)
       google_place.send :add_likes
-      expect(@google_resp["belinko_dislikes"]).to eql(nil)
+      expect(@google_resp["belinko_dislikes"]).to eql(0)
     end
   end
 

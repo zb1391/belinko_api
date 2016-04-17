@@ -16,6 +16,8 @@ describe User do
 
   it { should have_many(:reviews) }
   it { should have_many(:places) }
+  it { should have_many(:friendships) }
+  it { should have_many(:friends) }
 
   describe "when the email is invalid" do
     before do

@@ -75,12 +75,12 @@ module Omniauth
     # opt needs to either have a next key or an access_code key
     # next is to handle the facebook pagination, in which case you just make the request
     # access_code is received from the get_access_token or authenticate method 
-    def get_friends(opt={})
-      if opt[:next]
-        response = self.class.get(opt[:next])
+    def self.get_friends(access_token,next_url=nil)
+      if next_url
+        response = self.get(next_url)
       else
-        options = { query: { access_token: opt[:access_token] } }
-        response = self.class.get('/me/friends',options)
+        options = { query: { access_token: access_token } }
+        response = self.get('/me/friends',options)
       end
 
       unless response.success?
