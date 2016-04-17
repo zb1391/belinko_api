@@ -70,6 +70,25 @@ module Omniauth
       response.parsed_response
     end
 
+
+    # Get a users friend list
+    # opt needs to either have a next key or an access_code key
+    # next is to handle the facebook pagination, in which case you just make the request
+    # access_code is received from the get_access_token or authenticate method 
+    def get_friends(opt={})
+      if opt[:next]
+        response = self.class.get(opt[:next])
+      else
+        options = { query: { access_token: opt[:access_token] } }
+        response = self.class.get('/me/friends',options)
+      end
+
+      unless response.success?
+        Rails.logger.error 'Omniauth::Facebook.get_friends Failed'
+        fail Omniauth::ResponseError, 'errors.auth.facebook.friends'
+      end
+      response.parsed_response      
+    end
     private
 
     # access_token required params
