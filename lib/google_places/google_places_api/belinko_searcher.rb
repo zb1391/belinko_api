@@ -1,4 +1,9 @@
 module GooglePlacesApi
+  # This class is used for finding nearby places based on the 
+  # radius/latitude/longitude
+  # all three of those should be passed in as options to the constructor
+  #
+  # this is used in the GooglePlaceApi::Searcher class currently
   class BelinkoSearcher
     attr_reader :latitude,:longitude,:radius
     
