@@ -72,4 +72,20 @@ describe User do
       end
     end
   end
+
+  describe "#add_friends" do
+    before do
+      @user = FactoryGirl.create :user, uid: "999", provider: "facebook"
+      @friend = FactoryGirl.create :user, uid: "142319996168495", provider: "facebook"
+      @user.add_friends("fake_token")
+    end
+
+    it "creates a friendship record" do
+      expect(@user.friends.count).to eql(1)
+    end
+
+    it "has the friend be @friend" do
+      expect(@user.friends.first).to eql(@friend)
+    end
+  end
 end

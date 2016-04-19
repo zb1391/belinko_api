@@ -9,6 +9,14 @@ class FakeFacebookGraph < Sinatra::Base
     respond_json 200, 'facebook_me.json'
   end
 
+  get '/:version/me/friends' do
+    respond_json 200, 'facebook_friends.json'
+  end
+
+  get '/:version/:id/friends' do
+    respond_json 200, 'facebook_friends_empty.json'
+  end
+
   def respond_json(response_code, file_name)
     content_type :json
     status response_code
