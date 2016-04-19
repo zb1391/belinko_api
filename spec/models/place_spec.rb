@@ -65,4 +65,17 @@ RSpec.describe Place, type: :model do
       expect(place.dislikes).to eql(1)
     end
   end
+
+  describe "#reviewed_by" do
+    before(:each) do
+      @user = FactoryGirl.create :user
+      @place = FactoryGirl.create :place
+      @review = FactoryGirl.create :review, place_id: @place.id, user_id: @user.id
+    end
+
+    it "returns the place" do
+      res = Place.reviewed_by([@user.id])
+      expect(res.first).to eql(@place)
+    end
+  end
 end
