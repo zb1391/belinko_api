@@ -16,6 +16,8 @@ class Place < ActiveRecord::Base
   before_save :update_recommendations
 
 
+  scope :reviewed_by, -> (ids) { joins(:reviews).where(reviews: { user_id: ids }) }
+
   # for now just return latitude/longitude/gid/name
   # maybe if we keep track of more data eventually do different things
   # based on he type of search (nearby,radar,text)
@@ -37,10 +39,5 @@ class Place < ActiveRecord::Base
     else
       self.dislikes = (self.dislikes || 0) + 1
     end
-  end
-
-  # returns places where the author is in the array of ids
-  def self.reviewed_by(ids)
-    Place.joins(:reviews).where(reviews: { user_id: ids })
   end
 end
