@@ -5,6 +5,7 @@ require_relative "../../../../lib/google_places/google_places_api.rb"
 require_relative "../../../../lib/omniauth/facebook.rb"
 
 class Api::V1::GooglePlacesController < ApplicationController
+  before_action :authenticate_with_token!
   respond_to :json
   helper_method :missing_params
   
