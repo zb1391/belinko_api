@@ -17,7 +17,9 @@ module GooglePlacesApi
 
     def add_reviews
       @google_resp["belinko_reviews"] = []
-      @place.reviews.each do |review|
+      ids = User.find(@user_id).friends.pluck("id")
+      ids << @user_id
+      @place.reviews.reviewed_by(ids).each do |review|
         @google_resp["belinko_reviews"] << review.as_json
       end
     end
