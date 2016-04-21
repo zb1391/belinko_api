@@ -6,9 +6,9 @@ module GooglePlacesApi
   class Getter < GooglePlacesApi::Searcher
     attr_reader :place, :place_id
 
-    def initialize(id)
-      super()
-      @place_id = id
+    def initialize(user_id,place_id)
+      super(user_id)
+      @place_id = place_id
       check_required_options()
       @url = build_url()
     end

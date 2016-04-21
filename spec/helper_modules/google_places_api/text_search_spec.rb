@@ -8,13 +8,13 @@ include GooglePlacesHelpers
 describe GooglePlacesApi::TextSearch do
   describe "#initialize" do
     it "sets error.latitude when the option is missing" do
-      g = GooglePlacesApi::TextSearch.new
+      g = GooglePlacesApi::TextSearch.new(123)
       expect(g.error[:query]).to eql('query is a required option')
     end
 
     describe "when no additional options are passed" do
       it "uses the defaults" do
-        places = GooglePlacesApi::TextSearch.new(query: "test search")
+        places = GooglePlacesApi::TextSearch.new(123,{query: "test search"})
         expected = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=test+search&type=#{Searcher::TYPE}&key=#{Searcher::API_KEY}"
         expect(places.url).to eql(expected)
       end
@@ -30,7 +30,7 @@ describe GooglePlacesApi::TextSearch do
           pagetoken: "abc-123",
           zagatselected: true,
         }
-        @places = GooglePlacesApi::TextSearch.new(@options)
+        @places = GooglePlacesApi::TextSearch.new(123,@options)
       end
       
       describe "and both latitude and longitude are present" do
@@ -38,7 +38,7 @@ describe GooglePlacesApi::TextSearch do
           options = @options.clone
           options[:latitude] = 123
           options[:longitude] = 456
-          @places = GooglePlacesApi::TextSearch.new(options)
+          @places = GooglePlacesApi::TextSearch.new(123,options)
         end
 
         it "includes the radius option" do

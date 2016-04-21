@@ -16,15 +16,15 @@ module GooglePlacesApi
 
 
   # make a request to the google places api
-  def self.search!(type,options = {})
-    places = self.get_instance_type(type).new(options)
+  def self.search!(type,user_id,options = {})
+    places = self.get_instance_type(type).new(user_id,options)
     places.search
     return places
   end
 
   # make a request to the google places detail
-  def self.get!(id)
-    place = GooglePlacesApi::Getter.new(id)
+  def self.get!(user_id,place_id)
+    place = GooglePlacesApi::Getter.new(user_id,place_id)
     place.search
     return place
   end

@@ -10,22 +10,26 @@ class Api::V1::GooglePlacesController < ApplicationController
   helper_method :missing_params
   
   def radar_search
-    res = GooglePlacesApi.search!("radar",params)
+    id = current_user.id
+    res = GooglePlacesApi.search!("radar",id,params)
     render json: res.json_response, status: 200
   end
 
   def nearby_search
-    res = GooglePlacesApi.search!("nearby",params)
+    id = current_user.id
+    res = GooglePlacesApi.search!("nearby",id,params)
     render json: res.json_response, status: 200
   end
 
   def text_search
-    res = GooglePlacesApi.search!("text",params)
+    id = current_user.id
+    res = GooglePlacesApi.search!("text",id,params)
     render json: res.json_response, status: 200
   end
 
   def detail
-    res = GooglePlacesApi.get!(params[:id])
+    id = current_user.id
+    res = GooglePlacesApi.get!(id,params[:id])
     render json: res.json_response, status: 200
   end
 end

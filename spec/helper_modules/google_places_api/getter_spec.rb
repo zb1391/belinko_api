@@ -13,7 +13,7 @@ describe GooglePlacesApi::Getter do
         "status" => "OK",
         "result" => GooglePlacesHelpers.google_place_response
       }.to_json
-      @getter = GooglePlacesApi::Getter.new("123")
+      @getter = GooglePlacesApi::Getter.new(123,"123")
       @getter.send :parse_body, @response
     end
 
@@ -32,7 +32,7 @@ describe GooglePlacesApi::Getter do
         "status" => "OK",
         "results" => GooglePlacesHelpers.google_place_response
       }.to_json
-      @getter = GooglePlacesApi::Getter.new("123")
+      @getter = GooglePlacesApi::Getter.new(123,"123")
       @getter.send :parse_body, @response
       @results = @getter.json_response
     end

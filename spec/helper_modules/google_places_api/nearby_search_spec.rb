@@ -9,18 +9,18 @@ describe GooglePlacesApi::NearbySearch do
   describe "#initialize" do
 
     it "sets error.latitude when the option is missing" do
-      g = GooglePlacesApi::NearbySearch.new(longitude: 123)
+      g = GooglePlacesApi::NearbySearch.new(123,{longitude: 123})
       expect(g.error[:latitude]).to eql('latitude is a required option')
     end
 
     it "sets error.longitude when the option is missing" do
-      g = GooglePlacesApi::NearbySearch.new(latitude: 123)
+      g = GooglePlacesApi::NearbySearch.new(123,{latitude: 123})
       expect(g.error[:longitude]).to eql('longitude is a required option')
     end
 
     describe "when no additional options are passed" do
       it "uses the defaults" do
-        places = GooglePlacesApi::NearbySearch.new(latitude: 123, longitude: 456)
+        places = GooglePlacesApi::NearbySearch.new(123,{latitude: 123, longitude: 456})
         expected = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=123,456&radius=#{Searcher::RADIUS}&type=#{Searcher::TYPE}&key=#{Searcher::API_KEY}"
         expect(places.url).to eql(expected)
       end
@@ -39,7 +39,7 @@ describe GooglePlacesApi::NearbySearch do
           minprice: 0,
           maxprice: 4,
         }
-        @places = GooglePlacesApi::NearbySearch.new(options)
+        @places = GooglePlacesApi::NearbySearch.new(123,options)
       end
 
       it "includes name in the url" do

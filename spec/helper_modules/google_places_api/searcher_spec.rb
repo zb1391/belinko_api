@@ -15,7 +15,7 @@ describe GooglePlacesApi::Searcher do
         "status" => "OK",
         "results" => [GooglePlacesHelpers.google_place_response]
       }.to_json
-      @places = GooglePlacesApi::Searcher.new(latitude: 1, longitude: 2)
+      @places = GooglePlacesApi::Searcher.new(123,{latitude: 1, longitude: 2})
       @places.send :parse_body, @response
     end
 
@@ -34,7 +34,7 @@ describe GooglePlacesApi::Searcher do
         "status" => "OK",
         "results" => [GooglePlacesHelpers.google_place_response]
       }.to_json
-      @places = GooglePlacesApi::Searcher.new(latitude: 1, longitude: 2)
+      @places = GooglePlacesApi::Searcher.new(123,{latitude: 1, longitude: 2})
       @places.send :parse_body, @response
       @results = @places.json_response
     end
@@ -59,7 +59,7 @@ describe GooglePlacesApi::Searcher do
 
     describe "when the place is not already in the @places hash" do
       before(:each) do
-        @searcher = GooglePlacesApi::Searcher.new(latitude: 41.7389968, longitude: -77.992368, radius: 1500)
+        @searcher = GooglePlacesApi::Searcher.new(123,{latitude: 41.7389968, longitude: -77.992368, radius: 1500})
         @searcher.send :add_belinko_places
       end
 

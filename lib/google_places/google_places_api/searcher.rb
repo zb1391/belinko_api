@@ -4,9 +4,10 @@ require 'net/http'
 
 module GooglePlacesApi
   class Searcher
-    attr_reader :url, :status, :error, :places
+    attr_reader :url, :status, :error, :places, :user_id
 
-    def initialize(options = {})
+    def initialize(user_id,options = {})
+      @user_id = user_id
       @places = {}
       @error = {}
       @belinko_searcher = GooglePlacesApi::BelinkoSearcher.new(options)

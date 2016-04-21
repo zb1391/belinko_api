@@ -2,8 +2,8 @@ require_relative './searcher.rb'
 
 module GooglePlacesApi
   class NearbySearch < GooglePlacesApi::Searcher
-    def initialize(options={})
-      super(options)
+    def initialize(user_id,options={})
+      super(user_id,options)
       check_required_options(options)
       @url = build_url(options)
     end
