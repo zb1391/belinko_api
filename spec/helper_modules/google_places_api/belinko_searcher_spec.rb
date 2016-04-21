@@ -6,7 +6,7 @@ require "#{Rails.root}/lib/google_places/google_places_api/belinko_searcher.rb"
 include GooglePlacesApi
 
 describe GooglePlacesApi::BelinkoSearcher do
-  before(:all) do
+  before(:each) do
     @nearby = FactoryGirl.create :place, latitude: 40.7389968, longitude: -73.992368
     @too_far = FactoryGirl.create :place, latitude: 33.86879, longitude: 151.194217 
   end
@@ -31,10 +31,12 @@ describe GooglePlacesApi::BelinkoSearcher do
 
     describe "when lat/lng/radius are all present" do
       before(:each) do
-        @searcher = GooglePlacesApi::BelinkoSearcher.new(latitude:40.73999, longitude: -73.9753618, radius: 1500)
+        @user = FactoryGirl.create :user
+        @searcher = GooglePlacesApi::BelinkoSearcher.new(@user.id,{latitude:40.73999, longitude: -73.9753618, radius: 1500})
       end
 
-      it "returns belinko_places within the surrounding radius" do
+      it "returns belinko_places within the surrounding radius reviewed by the user/friends" do
+        FactoryGirl.create :review, user: @user, place: @nearby
         places = @searcher.nearby_places
         place = places[0]
         expect(place).to eql(@nearby)

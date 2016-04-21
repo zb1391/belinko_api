@@ -30,11 +30,12 @@ describe GooglePlacesApi::Searcher do
 
   describe "#json_response" do
     before(:each) do
+      user = FactoryGirl.create :user
       @response = {
         "status" => "OK",
         "results" => [GooglePlacesHelpers.google_place_response]
       }.to_json
-      @places = GooglePlacesApi::Searcher.new(123,{latitude: 1, longitude: 2})
+      @places = GooglePlacesApi::Searcher.new(user.id,{latitude: 1, longitude: 2})
       @places.send :parse_body, @response
       @results = @places.json_response
     end
@@ -54,17 +55,31 @@ describe GooglePlacesApi::Searcher do
 
   describe "#add_belinko_places" do
     before(:all) do
+      @user = FactoryGirl.create :user
       @nearby = FactoryGirl.create :place, latitude: 41.7389968, longitude: -77.992368 
     end
 
     describe "when the place is not already in the @places hash" do
       before(:each) do
-        @searcher = GooglePlacesApi::Searcher.new(123,{latitude: 41.7389968, longitude: -77.992368, radius: 1500})
-        @searcher.send :add_belinko_places
+        @searcher = GooglePlacesApi::Searcher.new(@user.id,{latitude: 41.7389968, longitude: -77.992368, radius: 1500})
       end
 
-      it "adds it to @places" do
-        expect(@searcher.places.keys.empty?).to eql(false)
+      describe "and it was reviewed by the user or the users friends" do
+        before(:each) do
+          FactoryGirl.create :review, user: @user, place: @nearby
+          @searcher.send :add_belinko_places
+        end
+
+        it "adds it to @places" do
+          expect(@searcher.places.keys.empty?).to eql(false)
+        end
+      end
+
+      describe "and it was not reviewed by the user of the users friends" do
+        it "does not add it to @places" do
+          @searcher.send :add_belinko_places
+          expect(@searcher.places.keys.empty?).to eql(true)
+        end
       end
     end
   end

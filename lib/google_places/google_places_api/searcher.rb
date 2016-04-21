@@ -10,7 +10,7 @@ module GooglePlacesApi
       @user_id = user_id
       @places = {}
       @error = {}
-      @belinko_searcher = GooglePlacesApi::BelinkoSearcher.new(options)
+      @belinko_searcher = GooglePlacesApi::BelinkoSearcher.new(user_id,options)
     end
 
     # make a request to the google places api
