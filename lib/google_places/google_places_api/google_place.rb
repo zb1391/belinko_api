@@ -30,7 +30,9 @@ module GooglePlacesApi
     end
 
     def add_reviews
-      @google_resp["reviews"] = @place.reviews.count || 0
+      ids = User.find(@user_id).friends.pluck("id")
+      ids << @user_id
+      @google_resp["reviews"] = @place.reviews.reviewed_by(ids).count || 0
     end
   end
 end

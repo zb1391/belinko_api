@@ -8,14 +8,17 @@ include GooglePlacesApi
 include GooglePlacesHelpers
 
 describe GooglePlacesApi::Searcher do
-  
+  before(:all) do
+    @user_id = (FactoryGirl.create :user).id
+  end  
+
   describe "#parse_body" do
     before(:each) do
       @response = {
         "status" => "OK",
         "results" => [GooglePlacesHelpers.google_place_response]
       }.to_json
-      @places = GooglePlacesApi::Searcher.new(123,{latitude: 1, longitude: 2})
+      @places = GooglePlacesApi::Searcher.new(@user_id,{latitude: 1, longitude: 2})
       @places.send :parse_body, @response
     end
 
@@ -88,16 +91,17 @@ end
 describe GooglePlacesApi::GooglePlace do
   before(:each) do
     @google_resp = GooglePlacesHelpers.google_place_response
+    @user_id = (FactoryGirl.create :user).id
   end
 
   describe "#initialize" do
     it "sets google_resp" do
-      google_place = GooglePlacesApi::GooglePlace.new(123,{google_resp: @google_resp})
+      google_place = GooglePlacesApi::GooglePlace.new(@user_id,{google_resp: @google_resp})
       expect(google_place.google_resp.nil?).to eql(false)
     end
 
     it "sets place" do
-      google_place = GooglePlacesApi::GooglePlace.new(123,{google_resp: @google_resp})
+      google_place = GooglePlacesApi::GooglePlace.new(@user_id,{google_resp: @google_resp})
       expect(google_place.place.id.nil?).to eql(false)
     end
 
@@ -105,7 +109,7 @@ describe GooglePlacesApi::GooglePlace do
 
   describe "#json_response" do
     it "returns the google_resp as json" do
-      google_place = GooglePlacesApi::GooglePlace.new(123,{google_resp: @google_resp})
+      google_place = GooglePlacesApi::GooglePlace.new(@user_id,{google_resp: @google_resp})
       expect(google_place.json_response).to eql(google_place.google_resp.to_json)
     end
   end
@@ -113,12 +117,12 @@ describe GooglePlacesApi::GooglePlace do
   describe "#add_reviews" do
     before(:each) do
       @place = FactoryGirl.create(:place, gid: "#{Place.count+1}")
-      3.times { FactoryGirl.create(:review, place: @place) }
+      3.times { FactoryGirl.create(:review, place: @place, user_id: @user_id) }
       @google_resp["place_id"] = @place.gid
     end
 
     it "adds reviews to the google_resp" do
-      google_place = GooglePlacesApi::GooglePlace.new(123,{google_resp: @google_resp})
+      google_place = GooglePlacesApi::GooglePlace.new(@user_id,{google_resp: @google_resp})
       google_place.send :add_reviews
       expect(@google_resp["reviews"]).to eql(3)
     end
