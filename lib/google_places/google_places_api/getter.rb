@@ -14,7 +14,7 @@ module GooglePlacesApi
     end
 
     def json_response
-      place = @place || GooglePlacesApi::GooglePlaceDetail.new()
+      place = @place || GooglePlacesApi::GooglePlaceDetail.new(@user_id)
       {
         status: @status,
         errors: @error,
@@ -39,7 +39,7 @@ module GooglePlacesApi
       response = JSON.parse(response)
       @status = response["status"]
       @error  = response["error_message"]
-      @place  = GooglePlacesApi::GooglePlaceDetail.new(google_resp: response["result"])
+      @place  = GooglePlacesApi::GooglePlaceDetail.new(@user_id,google_resp: response["result"])
     end
   end
 end

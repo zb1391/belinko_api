@@ -63,13 +63,13 @@ describe GooglePlacesApi::GooglePlaceDetail do
     end
 
     it "adds belinko_likes to the google_resp" do
-      google_place = GooglePlacesApi::GooglePlaceDetail.new(google_resp: @google_resp)
+      google_place = GooglePlacesApi::GooglePlaceDetail.new(123,{google_resp: @google_resp})
       google_place.send :add_likes
       expect(@google_resp["belinko_likes"]).to eql(1)
     end
 
     it "adds belinko_dislikes to the google_resp" do
-      google_place = GooglePlacesApi::GooglePlaceDetail.new(google_resp: @google_resp)
+      google_place = GooglePlacesApi::GooglePlaceDetail.new(123,{google_resp: @google_resp})
       google_place.send :add_likes
       expect(@google_resp["belinko_dislikes"]).to eql(0)
     end
@@ -83,7 +83,7 @@ describe GooglePlacesApi::GooglePlaceDetail do
     end
 
     it "adds reviews to the google_resp" do
-      google_place = GooglePlacesApi::GooglePlaceDetail.new(google_resp: @google_resp)
+      google_place = GooglePlacesApi::GooglePlaceDetail.new(123,{google_resp: @google_resp})
       google_place.send :add_reviews
       @place.reviews.each do |review|
         expect(@google_resp["belinko_reviews"]).to include(review.as_json)

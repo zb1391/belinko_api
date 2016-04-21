@@ -1,10 +1,10 @@
 module GooglePlacesApi
   class GooglePlace
-    attr_reader :google_resp, :place
+    attr_reader :google_resp, :place, :user_id
 
-    def initialize(options={})
+    def initialize(user_id,options={})
       @google_resp = options[:google_resp] || {}
-      
+      @user_id = user_id
       unless @google_resp.empty?
         @place = Place.find_or_initialize_by(gid: @google_resp["place_id"]) do |place|
           place.name      = @google_resp["name"]

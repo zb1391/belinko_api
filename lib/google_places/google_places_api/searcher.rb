@@ -62,7 +62,7 @@ module GooglePlacesApi
 
     def set_places(results)
       results.each do |google_place|
-        @places[google_place["place_id"]] = GooglePlacesApi::GooglePlace.new(google_resp: google_place)
+        @places[google_place["place_id"]] = GooglePlacesApi::GooglePlace.new(@user_id,google_resp: google_place)
       end
     end
   end
