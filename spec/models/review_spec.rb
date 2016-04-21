@@ -14,4 +14,19 @@ RSpec.describe Review, type: :model do
   it { should belong_to :user }
   it { should belong_to :place }
 
+  describe "#reviewed_by" do
+    before(:each) do
+      @user = FactoryGirl.create :user
+      place = FactoryGirl.create :place
+      3.times do
+        FactoryGirl.create :review, user: @user, place: place
+      end
+      another = FactoryGirl.create :user
+      FactoryGirl.create :review, user: another, place: place
+    end
+
+    it "returns reviews created by a particular user" do
+      expect(Review.reviewed_by(@user.id).count).to eql(3)
+    end
+  end
 end

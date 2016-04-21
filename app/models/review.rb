@@ -6,4 +6,6 @@ class Review < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :place
+
+  scope :reviewed_by, -> (ids) { where( user_id: ids) }
 end
