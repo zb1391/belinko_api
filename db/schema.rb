@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160417151946) do
+ActiveRecord::Schema.define(version: 20160422125406) do
 
   create_table "friendships", force: :cascade do |t|
     t.integer "user_id",   limit: 4, null: false
@@ -57,6 +57,8 @@ ActiveRecord::Schema.define(version: 20160417151946) do
     t.string   "provider",               limit: 255
     t.string   "uid",                    limit: 255
     t.string   "auth_token",             limit: 255, default: ""
+    t.string   "name",                   limit: 255
+    t.string   "thumbnail",              limit: 255
   end
 
   add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true, using: :btree

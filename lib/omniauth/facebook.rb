@@ -58,10 +58,13 @@ module Omniauth
       response.parsed_response['access_token']
     end
 
+    # picture is just a thumbnail, but i think that is best
+    # so responses stay small for this
+    # i will have to do something like update the picture on each login
     def get_user_profile(access_token)
-      options = { query: { access_token: access_token } }
+      fields = "id,name,picture"
+      options = { query: { access_token: access_token, fields: fields} }
       response = self.class.get('/me', options)
-
       # Something went wrong most propably beacuse of the connection.
       unless response.success?
         Rails.logger.error 'Omniauth::Facebook.get_user_profile Failed'

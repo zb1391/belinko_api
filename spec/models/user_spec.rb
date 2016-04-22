@@ -11,6 +11,8 @@ describe User do
   it { should respond_to(:uid) }
   it { should respond_to(:provider) }
   it { should respond_to(:auth_token) }
+  it { should respond_to(:name) }
+  it { should respond_to(:thumbnail) }
 
   it { should be_valid }
 
