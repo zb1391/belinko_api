@@ -6,7 +6,7 @@ RSpec.describe Review, type: :model do
   subject { review }
 
   it { should respond_to(:comment) }
-
+  it { should respond_to(:would_recommend) }
   it { should validate_presence_of :comment }
   it { should validate_presence_of :user }
 #  it { should validate_presence_of :place_id }

@@ -56,7 +56,7 @@ RSpec.describe Api::V1::ReviewsController, type: :controller do
           @user = FactoryGirl.create :user, auth_token: (User.count+1).to_s+'-token'
           @place = FactoryGirl.create :place, gid: (Place.count+1).to_s
           request.headers["Authorization"] = @user.auth_token
-          post :create, { review: { place: { gid: @place.gid },  comment: 'test' } }
+          post :create, { review: { place: { gid: @place.gid },  comment: 'test', would_recommend: true } }
         end
 
 
