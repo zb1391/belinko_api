@@ -25,6 +25,13 @@ RSpec.describe Api::V1::ReviewsController, type: :controller do
           place = Place.find_by(gid: Place.count)
           expect(place.dislikes).to eql(1)
         end
+
+        it "includes the user information in the response" do
+          resp = json_response
+          user_data = resp[:user]
+          expected = {:id => @user.id, :name => @user.name, :thumbnail => @user.thumbnail}
+          expect(user_data).to eql(expected)
+        end
       end
 
       context "when is not created" do

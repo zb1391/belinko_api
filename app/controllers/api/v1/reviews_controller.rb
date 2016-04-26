@@ -7,7 +7,8 @@ class Api::V1::ReviewsController < ApplicationController
     review.user_id = current_user.id
 
     if place.save
-      render json: review, status: 201
+      opts = { user: { only: [:name, :id, :thumbnail] } }
+      render json: review, include: opts, status: 201
     else
       render json: { errors: place.errors }, status: 422
     end
