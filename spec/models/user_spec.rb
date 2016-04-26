@@ -44,23 +44,6 @@ describe User do
     end
   end
 
-  describe "#update_profile_attributes" do
-    before(:each) do
-      @user = FactoryGirl.create :user
-      @auth = {"picture" => "test.com", "token" => (User.count+1).to_s+'-token'}
-      @user.update_profile_attributes(@auth)
-      @user.reload
-    end
-
-    it "sets the thumbnail" do
-      expect(@user.thumbnail).to eql(@auth["picture"])
-    end
-
-    it "sets the auth_token" do
-      expect(@user.auth_token).to eql(@auth["token"])
-    end
-  end
-
   describe "review associations" do
     before do
       @user = FactoryGirl.create :user, uid: "456", provider: "facebook"

@@ -35,13 +35,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  # update the auth token and the user profile picture if present
-  def update_profile_attributes(user_creds)
-    self.auth_token = user_creds["token"]
-    self.thumbnail = user_creds["picture"]
-    self.save
-  end
-
   # find or create a new user based on the auth credentials provided
   def self.from_omniauth(auth)
     where(provider: auth["provider"], uid: auth["uid"]).first_or_initialize.tap do |user|
@@ -63,5 +56,4 @@ class User < ActiveRecord::Base
       end
     end
   end
-
 end
