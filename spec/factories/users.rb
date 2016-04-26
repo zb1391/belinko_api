@@ -5,6 +5,8 @@ FactoryGirl.define do
     password_confirmation "12345678"
     sequence(:uid) { |n| n }
     sequence(:auth_token) { |n| "#{n}" }
+    name { "Test User" }
+    thumbnail {"www.test.com"}
   end
 
 end

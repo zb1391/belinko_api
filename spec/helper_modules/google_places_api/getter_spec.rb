@@ -92,7 +92,7 @@ describe GooglePlacesApi::GooglePlaceDetail do
       google_place = GooglePlacesApi::GooglePlaceDetail.new(@user_id,{google_resp: @google_resp})
       google_place.send :add_reviews
       @place.reviews.each do |review|
-        expect(@google_resp["belinko_reviews"]).to include(review.as_json)
+        expect(@google_resp["belinko_reviews"]).to include(review.as_json(include: {user: {only: [:name,:id,:thumbnail]}}))
       end
     end
   end
