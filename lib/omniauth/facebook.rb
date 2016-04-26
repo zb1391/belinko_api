@@ -19,11 +19,13 @@ module Omniauth
       provider = self.new
       access_token = provider.get_access_token(code)
       user_info    = provider.get_user_profile(access_token)
+      picture      = provider.get_picture_url(user_info["picture"])
       creds = {
         "provider" => "facebook",
         "uid" => user_info["id"],
         "name" => user_info["name"],
-        "token" => access_token
+        "token" => access_token,
+        "picture" => picture
       }
       return creds
     end
@@ -73,6 +75,15 @@ module Omniauth
       response.parsed_response
     end
 
+    # get the profile picture url
+    # return an empty string if the picture is a silhouette
+    def get_picture_url(picture_info)
+      url = ""
+      unless picture_info["data"]["is_silhouette"]
+        url = picture_info["data"]["url"]
+      end
+      return url
+    end
 
     # Get a users friend list
     # opt needs to either have a next key or an access_code key

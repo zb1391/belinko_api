@@ -22,7 +22,6 @@ class User < ActiveRecord::Base
     response = Omniauth::Facebook.get_friends(token,next_url)
     total_count = response["summary"]["total_count"]
     return if response["data"].empty?
-    return if (total_count.nil? || self.friends.count >= total_count)
 
     response["data"].each do |f|
       friend = User.find_by_uid(f["id"])
@@ -36,24 +35,26 @@ class User < ActiveRecord::Base
     end
   end
 
-  def update_auth_token(token)
-    update_attributes(auth_token: token) unless token == auth_token
+  # update the auth token and the user profile picture if present
+  def update_profile_attributes(user_creds)
+    self.auth_token = user_creds["token"]
+    self.thumbnail = user_creds["picture"]
+    self.save
   end
 
+  # find or create a new user based on the auth credentials provided
   def self.from_omniauth(auth)
     where(provider: auth["provider"], uid: auth["uid"]).first_or_initialize.tap do |user|
+      user.name = auth["name"]
       user.email = "user_#{auth["uid"]}@belinko.com"
       user.password = Devise.friendly_token[0,20]
       user.provider = auth["provider"]
       user.uid = auth["uid"]
       user.auth_token = auth["token"]
+      user.thumbnail = auth["picture"]
       user.save
-      # user.name = auth.info.name   # assuming the user model has a name
     end
-    
   end
-
-
 
   def self.new_with_session(params, session)
     super.tap do |user|

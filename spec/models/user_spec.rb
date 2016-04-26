@@ -44,20 +44,22 @@ describe User do
     end
   end
 
-  describe "update_auth_token" do
+  describe "#update_profile_attributes" do
     before(:each) do
-      @user = FactoryGirl.create :user, auth_token: (User.count+1).to_s+'-token'
-      @auth = OmniAuth.config.mock_auth[:facebook]
-      @auth.credentials = { :token => (User.count+1).to_s+"-token-unique" }
-      @auth.uid = "123"
-      @user.update_auth_token(@auth.credentials.token)
+      @user = FactoryGirl.create :user
+      @auth = {"picture" => "test.com", "token" => (User.count+1).to_s+'-token'}
+      @user.update_profile_attributes(@auth)
+      @user.reload
     end
 
-    it "updates the token when it differs from the current" do
-      expect(@user.auth_token).to eql (User.count+1).to_s+"-token-unique"
-    end 
-  end
+    it "sets the thumbnail" do
+      expect(@user.thumbnail).to eql(@auth["picture"])
+    end
 
+    it "sets the auth_token" do
+      expect(@user.auth_token).to eql(@auth["token"])
+    end
+  end
 
   describe "review associations" do
     before do

@@ -1,4 +1,10 @@
 {
     "id": "123",
-    "name": "Test User"
+    "name": "Test User",
+    "picture": {
+      "data": {
+        "is_silhouette": false,
+        "url": "www.my-picture.com"
+      }
+    }
 }

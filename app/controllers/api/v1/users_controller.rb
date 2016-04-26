@@ -12,7 +12,7 @@ class Api::V1::UsersController < ApplicationController
       user_creds = Omniauth::Facebook.authenticate(params[:code])
       @user = User.from_omniauth(user_creds)
       if @user.persisted?
-        @user.update_auth_token(user_creds["token"])
+        @user.update_profile_attributes(user_creds)
         @user.add_friends(user_creds["token"])
         sign_in @user, event: :authentication
         render json: user_creds, status: 201
